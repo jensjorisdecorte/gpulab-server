@@ -1,8 +1,7 @@
 <?php
 $out = array();
-echo $name;
-echo $descr;
-exec("/etc/scripts/submit_job.sh '".$name."' '".$descr."' 2>&1", $out);
+$job_prefix = getenv("GPULAB_SERVER_JOB_PREFIX");
+exec("/etc/scripts/submit_job.sh '".$job_prefix.$name."' '".$descr."' 2>&1", $out);
 foreach($out as $line) {
     echo $line;
 }

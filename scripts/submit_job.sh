@@ -5,7 +5,7 @@ export LANG=C.UTF-8;
 GPULAB_CERT=/etc/certs/cert_decrypted.pem gpulab-cli submit --project=dp2019-11 --wait-run << EOF
  {
      "jobDefinition": {
-         "name": "dp11-$1",
+         "name": "$1",
          "description": "$2",
          "dockerImage": "gpulab.ilabt.imec.be:5000/jupyter-example:v2",
          "jobType": "BATCH",

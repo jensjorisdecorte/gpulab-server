@@ -1,7 +1,7 @@
 # gpulab-server
 ### An intuitive webserver for management of the GPULab software by UGent.
 
-(image is currently tagged beta)
+The image is currently tagged beta and only supports the ```gpulab.ilabt.imec.be:5000/jupyter-example:v2``` image. I am planning to add support for other images.
 
 ![home ui of gpulab-server](https://raw.githubusercontent.com/jensjorisdecorte/gpulab-server/master/images/home.png)
 
@@ -16,6 +16,8 @@ Encrypt this password with a bcrypt hasher (e.g. https://www.browserling.com/too
 
 3. Add the docker container to a new or existing docker-compose.yml file like this:
 
+4. optional:  define a prefix for each job name (e.g. ```dp11-```)
+
 ```
 services:
   ...
@@ -29,5 +31,6 @@ services:
       - ./relative/path/to/gpulab_decrypted_cert.pem:/etc/certs/decrypted_cert.pem
     environment:
       - GPULAB_SERVER_USER=myGPULabServerUsername
+      - GPULAB_SERVER_JOB_PREFIX=myJobPrefix-
   ...
 ```
