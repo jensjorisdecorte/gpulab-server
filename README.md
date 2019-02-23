@@ -17,8 +17,8 @@ Encrypt this password with a bcrypt hasher (e.g. https://www.browserling.com/too
 ```
 services:
   ...
-  gpulab:
-    container_name: gpulab
+  gpulab-server:
+    container_name: gpulab-server
     image: jpdcorte/gpulab-server:beta
     ports:
       - "80:80"
