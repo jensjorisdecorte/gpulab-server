@@ -14,7 +14,7 @@ services:
       - "80:80"
     volumes:
       - /path/to/gpulab-pass.txt:/etc/pass/pass.txt
-      - /path/to/gpulab_decrypted_cert.pem:/etc/certs/decrypted_cert.pem
+      - /path/to/gpulab-decrypted-cert.pem:/etc/certs/decrypted_cert.pem
     environment:
       - GPULAB_SERVER_USER=eduplat
   ...
