@@ -37,6 +37,15 @@ foreach($out as $line) {
 }
 
 $full_url = $url.$token_string;
-header("Location: ".$full_url);
-exit;
+$full_url = filter_var($full_url, FILTER_SANITIZE_URL);
+
+if (filter_var($full_url, FILTER_VALIDATE_URL) !== false) {
+    header("Location: ".$full_url);
+    exit;
+} else { ?>
+    <div class="alert alert-danger" role="alert">
+      No permissions
+    </div>
+    <script type="text/javascript">setTimeout("window.close();", 2000);</script>
+<?php } 
 ?>

@@ -1,5 +1,5 @@
 <html>
-<?php include("../start_script.php") ?>
+<?php include("../start_script.php"); ?>
 <?php include("../header.php"); ?>
 
 <body>
