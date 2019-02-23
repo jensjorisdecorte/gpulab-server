@@ -57,15 +57,12 @@ networks:
   web:
 ```
 
-5. make sure the ```nginx.conf``` file contains the right settings to serve the GPULab Server:
+5. make sure the ```nginx.conf``` file includes the right settings to serve the GPULab Server:
 ```
 user  nginx;
 worker_processes  1;
 
-...
-
 http {
-    ...
 
     upstream gpulab-server {
         server gpulab-server:80;
