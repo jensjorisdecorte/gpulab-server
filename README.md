@@ -58,6 +58,7 @@ networks:
 ```
 
 5. make sure the ```nginx.conf``` file includes the right settings to serve the GPULab Server:
+
 ```
 user  nginx;
 worker_processes  1;
