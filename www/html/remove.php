@@ -29,7 +29,7 @@
     include("../gpulab-remove.php");
 ?>
 <?php } else { ?>
-    session_destroy();
+  <?php session_destroy(); ?>
     <div class="alert alert-warning" role="alert">
       Not authenticated..
     </div>
