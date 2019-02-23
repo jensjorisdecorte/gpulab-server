@@ -23,8 +23,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - /path/to/gpulab_pass.txt:/etc/pass/pass.txt
-      - /path/to/gpulab_decrypted_cert.pem:/etc/certs/decrypted_cert.pem
+      - ./relative/path/to/gpulab_pass.txt:/etc/pass/pass.txt
+      - ./relative/path/to/gpulab_decrypted_cert.pem:/etc/certs/decrypted_cert.pem
     environment:
       - GPULAB_SERVER_USER=myGPULabServerUsername
   ...
