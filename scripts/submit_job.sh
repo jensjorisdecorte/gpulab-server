@@ -17,7 +17,7 @@ GPULAB_CERT=/etc/certs/cert_decrypted.pem gpulab-cli submit --project=dp2019-11 
          },
          "jobDataLocations": [
              {
-                 "mountPoint": "/project"
+                 "mountPoint": "/project/notebooks"
              }
          ],
          "portMappings": [ { "containerPort": 8888 } ]
