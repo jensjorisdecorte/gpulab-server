@@ -14,23 +14,86 @@ Encrypt this password with a bcrypt hasher (e.g. https://www.browserling.com/too
 
 3. Decide on a username for the GPULab server (e.g. ```myGPULabServerUsername```)
 
-3. Add the docker container to a new or existing docker-compose.yml file like this:
+3. optional:  define a prefix for each job name (e.g. ```dp11-```)
 
-4. optional:  define a prefix for each job name (e.g. ```dp11-```)
+4. Add the docker container to a new or existing docker-compose.yml file. **GPULab Server only works behind a secured proxy**.
+
+Your docker-compose.yml file should look something like this:
+
 
 ```
+version: "3"
+
 services:
-  ...
+
   gpulab-server:
     container_name: gpulab-server
     image: jpdcorte/gpulab-server:beta
-    ports:
-      - "80:80"
+    export:
+      - "80"
     volumes:
       - ./relative/path/to/gpulab_pass.txt:/etc/pass/pass.txt
       - ./relative/path/to/gpulab_decrypted_cert.pem:/etc/certs/decrypted_cert.pem
     environment:
       - GPULAB_SERVER_USER=myGPULabServerUsername
       - GPULAB_SERVER_JOB_PREFIX=myJobPrefix-
-  ...
+    networks:
+      - web
+  
+  nginx:
+    container_name: reverse-proxy
+    image: nginx:latest
+    volumes:
+      - ./relative/path/to/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - gpulab-server
+    networks:
+      - web
+
+networks:
+  web:
 ```
+
+5. make sure the ´´´nginx.conf´´´ file contains the right settings to serve the GPULab Server:
+```
+user  nginx;
+worker_processes  1;
+
+...
+
+http {
+    ...
+
+    upstream gpulab-server {
+        server gpulab-server:80;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            rewrite ^ https://$host$request_uri? permanent;
+        }
+    }
+
+    server {
+        listen 443 ssl;
+
+        ssl_certificate /absolute/path/to/fullchain.pem;
+        ssl_certificate_key /absolute/path/to/privkey.pem;
+
+        location / {
+            proxy_pass http://gpulab-server;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded_Proto $scheme;
+        }
+    }
+}
+
+```
+
