@@ -2,7 +2,15 @@
 ### An intuitive webserver for management of the GPULab software by UGent.
 
 ## Setup
-Add this docker container to a new or existing docker-compose.yml file like this:
+1. choose a password to protect the GPULab server
+
+Encrypt this password with a bcrypt hasher (e.g. https://www.browserling.com/tools/bcrypt) and paste the hash on the first line of a file called ```gpulab-pass.txt```
+
+2. Decrypt your GPULab certificate (explained on https://doc.ilabt.imec.be/ilabt/gpulab/cli.html#basic-cli-usage) and save it to ```gpulab-decrypted-cert.pem```
+
+3. Decide on a username for the GPULab server (e.g. ```myGPULabServerUsername```)
+
+3. Add the docker container to a new or existing docker-compose.yml file like this:
 
 ```
 services:
@@ -16,6 +24,6 @@ services:
       - /path/to/gpulab-pass.txt:/etc/pass/pass.txt
       - /path/to/gpulab-decrypted-cert.pem:/etc/certs/decrypted_cert.pem
     environment:
-      - GPULAB_SERVER_USER=eduplat
+      - GPULAB_SERVER_USER=myGPULabServerUsername
   ...
 ```
