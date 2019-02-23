@@ -14,7 +14,7 @@ Encrypt this password with a bcrypt hasher (e.g. https://www.browserling.com/too
 
 3. Decide on a username for the GPULab server (e.g. ```myGPULabServerUsername```)
 
-3. optional:  define a prefix for each job name (e.g. ```dp11-```)
+3. optional:  define a prefix for each job name (e.g. ```myJobPrefix-```)
 
 4. Add the docker container to a new or existing docker-compose.yml file. **GPULab Server only works behind a secured proxy**.
 
