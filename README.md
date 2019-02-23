@@ -13,9 +13,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./www:/var/www
-      - ./gpulab-config/gpulab-pass.txt:/etc/pass/pass.txt
-      - ./gpulab-config/certs:/etc/certs
+      - /path/to/gpulab-pass.txt:/etc/pass/pass.txt
+      - /path/to/gpulab_decrypted_cert.pem:/etc/certs/decrypted_cert.pem
     environment:
       - GPULAB_SERVER_USER=eduplat
     ...
