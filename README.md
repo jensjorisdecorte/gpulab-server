@@ -3,6 +3,8 @@
 
 (image is currently tagged beta)
 
+![home ui of gpulab-server](https://raw.githubusercontent.com/jensjorisdecorte/gpulab-server/master/images/home.png)
+
 ## Setup
 1. choose a password to protect the GPULab server
 
