@@ -17,5 +17,5 @@ services:
       - /path/to/gpulab_decrypted_cert.pem:/etc/certs/decrypted_cert.pem
     environment:
       - GPULAB_SERVER_USER=eduplat
-    ...
+  ...
 ```
