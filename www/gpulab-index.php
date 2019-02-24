@@ -36,6 +36,26 @@ $jobcount = count($out)-1;
     $('form').remove();
   }
 
+  function openLogs(id) {
+    var url = '/logs.php';
+    var form = $('<form action="' + url + '" method="post" target="_blank">' +
+      '<input type="text" name="id" value="' + id + '" />' +
+      '</form>');
+    $('body').append(form);
+    form.submit();
+    $('form').remove();
+  }
+
+  function debugContainer(id) {
+    var url = '/debug.php';
+    var form = $('<form action="' + url + '" method="post" target="_blank">' +
+      '<input type="text" name="id" value="' + id + '" />' +
+      '</form>');
+    $('body').append(form);
+    form.submit();
+    $('form').remove();
+  }
+
 
   function openNewContainer() {
     var url = '/new.php';
@@ -47,50 +67,57 @@ $jobcount = count($out)-1;
 
 </script>
 
-<button type="button" class="btn btn-primary" style="margin:10px;">
-  <span class="badge badge-light"><?php echo $jobcount;?></span> jobs
-</button>
+<hr/>
 
-<table class="table table-hover	">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Task ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Command</th>
-      <th scope="col">Created</th>
-      <th scope="col">User</th>
-      <th scope="col">Project</th>
-      <th scope="col">Status</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-      foreach(array_slice($out,1) as $line) {
-        $line = preg_replace('!\s+!', ' ', $line);
-        $parts = explode(" ", $line);?>
-    <tr>
-      <th scope="row"><?php echo $parts[0]; ?></th>
-      <td><?php echo $parts[1]; ?></td>
-      <td><?php echo $parts[2]; ?></td>
-      <td><?php echo $parts[3]; ?></td>
-      <td><?php echo $parts[4]; ?></td>
-      <td><?php echo $parts[5]; ?></td>
-      <td><?php echo $parts[6]; ?></td>
-      <td>
-       <div class="btn-group" role="group" aria-label="actions">
-         <button type="button" onclick="openContainer('<?php echo $parts[0]; ?>')"class="btn btn-success" <?php if(!in_array($parts[6], array("RUNNING", "STARTING"))) echo "disabled"; ?>>Open</button>
-         <button type="button" onclick="cancelContainer('<?php echo $parts[0]; ?>')"class="btn btn-warning" <?php if(!in_array($parts[6], array("RUNNING", "STARTING"))) echo "disabled"; ?>>Cancel</button>
-         <button type="button" onclick="removeContainer('<?php echo $parts[0]; ?>')"class="btn btn-danger" <?php if(in_array($parts[6], array("RUNNING", "STARTING"))) echo "disabled"; ?>>Remove</button>
-        </div>
-      </td>
-    </tr>
-    <?php  }
-    ?>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-hover	table-striped table-borderless">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Task ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Command</th>
+        <th scope="col">Created</th>
+        <th scope="col">User</th>
+        <th scope="col">Project</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+        foreach(array_slice($out,1) as $line) {
+          $line = preg_replace('!\s+!', ' ', $line);
+          $parts = explode(" ", $line);?>
+      <tr>
+        <th scope="row"><?php echo $parts[0]; ?></th>
+        <td><?php echo $parts[1]; ?></td>
+        <td><?php echo $parts[2]; ?></td>
+        <td><?php echo $parts[3]; ?></td>
+        <td><?php echo $parts[4]; ?></td>
+        <td><?php echo $parts[5]; ?></td>
+        <td><?php echo $parts[6]; ?></td>
+        <td>
+        <div class="btn-group" role="group" aria-label="actions">
+        <?php if(in_array($parts[6], array("RUNNING", "STARTING"))) {?>
+          <button type="button" onclick="openContainer('<?php echo $parts[0]; ?>')"class="btn btn-success" >Open</button>
+          <button type="button" onclick="cancelContainer('<?php echo $parts[0]; ?>')"class="btn btn-warning">Cancel</button>
+        <?php } else { ?>
+          <button type="button" onclick="removeContainer('<?php echo $parts[0]; ?>')"class="btn btn-danger">Remove</button>
+        <?php } ?>
+          <button type="button" onclick="openLogs('<?php echo $parts[0]; ?>')"class="btn btn-light">Logs</button>
+          <button type="button" onclick="debugContainer('<?php echo $parts[0]; ?>')"class="btn btn-light">Debug</button>
+          </div>
+        </td>
+      </tr>
+      <?php  }
+      ?>
+    </tbody>
+  </table>
+</div>
 
-<button type="button" onclick="openNewContainer()" class="btn btn-success" style="margin:10px;">
+<hr/>
+
+<button type="button" onclick="openNewContainer()" class="btn btn-success" style="margin:0 10px;">
   New container
 </button>
 

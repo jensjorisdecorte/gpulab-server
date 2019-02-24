@@ -1,7 +1,12 @@
 <?php
+
+file_put_contents("/etc/jobs/job.json", $json, LOCK_EX);
+
+$command = "export LC_ALL=C.UTF-8; export LANG=C.UTF-8; GPULAB_CERT=/etc/certs/cert_decrypted.pem gpulab-cli submit --wait-run --project=".getenv("GPULAB_SERVER_PROJECT")." < /etc/jobs/job.json 2>&1";
+
 $out = array();
-$job_prefix = getenv("GPULAB_SERVER_JOB_PREFIX");
-exec("/etc/scripts/submit_job.sh '".$job_prefix.$name."' '".$descr."' 2>&1", $out);
+exec($command, $out);
+echo $out;
 foreach($out as $line) {
     echo $line;
 }

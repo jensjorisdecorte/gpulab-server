@@ -1,6 +1,11 @@
 <html>
 <?php include("../start_script.php") ?>
 <?php include("../header.php"); ?>
+<script>
+  // Set the default CSS theme and icon library globally
+  JSONEditor.defaults.theme = 'bootstrap4';
+  JSONEditor.defaults.iconlib = 'fontawesome5';
+</script>
 
 <body>
 

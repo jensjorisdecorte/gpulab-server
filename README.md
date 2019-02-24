@@ -14,9 +14,11 @@ Encrypt this password with a bcrypt hasher (e.g. https://www.browserling.com/too
 
 3. Decide on a username for the GPULab server (e.g. ```myGPULabServerUsername```)
 
-3. optional:  define a prefix for each job name (e.g. ```myJobPrefix-```)
+4. Determine your project name at GPULab (e.g. ```myProject```)
 
-4. Add the docker container to a new or existing docker-compose.yml file. **GPULab Server only works behind a secured proxy**.
+5. optional:  define a prefix for each job name (e.g. ```myJobPrefix-```)
+
+6. Add the docker container to a new or existing docker-compose.yml file. **GPULab Server only works behind a secured proxy**.
 
 Your docker-compose.yml file should look something like this:
 
@@ -29,7 +31,7 @@ services:
   gpulab-server:
     container_name: gpulab-server
     image: jpdcorte/gpulab-server:beta
-    export:
+    expose:
       - "80"
     volumes:
       - ./relative/path/to/gpulab_pass.txt:/etc/pass/pass.txt
@@ -37,6 +39,7 @@ services:
     environment:
       - GPULAB_SERVER_USER=myGPULabServerUsername
       - GPULAB_SERVER_JOB_PREFIX=myJobPrefix-
+      - GPULAB_SERVER_PROJECT=myProject
     networks:
       - web
   
@@ -57,7 +60,7 @@ networks:
   web:
 ```
 
-5. make sure the ```nginx.conf``` file includes the right settings to serve the GPULab Server:
+7. make sure the ```nginx.conf``` file includes the right settings to serve the GPULab Server:
 
 ```
 user  nginx;

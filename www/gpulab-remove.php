@@ -5,6 +5,7 @@ echo $descr;
 exec("export LC_ALL=C.UTF-8; export LANG=C.UTF-8; GPULAB_CERT=/etc/certs/cert_decrypted.pem gpulab-cli rm ".$id." 2>&1", $out);
 foreach($out as $line) {
     echo $line;
+    echo '</br>';
 }
 ?>
 

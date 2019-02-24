@@ -16,5 +16,8 @@ RUN /etc/scripts/setup.sh
 RUN rm /var/www/html/*
 # ADD ./www /var/www/
 
+# provides a writable folder for PHP to save job definitions
+RUN mkdir /etc/jobs && cd /etc && chmod -R 777 jobs
+
 EXPOSE 80
 CMD apachectl -D FOREGROUND

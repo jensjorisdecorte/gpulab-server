@@ -11,8 +11,8 @@
 <?php 
   session_start();
   if( isset( $_SESSION["user"] ) ) {
-    $json = htmlspecialchars_decode($_POST["json"]);
-    include("../gpulab-create.php");
+    $id = $_POST["id"];
+    include("../gpulab-debug.php");
   } else { 
     session_destroy(); ?>
     <div class="alert alert-warning" role="alert">
